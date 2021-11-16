@@ -1,0 +1,15 @@
+<%= form_for(task) do |f| %>
+  <%= f.label :title, "標題" %>
+  <%= f.text_field :title %> <br />
+
+  <%= f.label :start, "起始時間" %>
+  <%= f.datetime_select :start %> <br />
+
+  <%= f.label :end, "結束時間" %>
+  <%= f.datetime_select :end %> <br />
+
+  <%= f.label :content, "任務內容" %>
+  <%= f.text_area :content %> <br />
+
+  <%= f.submit %>
+<% end %>

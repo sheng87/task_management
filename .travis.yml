@@ -1,3 +1,4 @@
 language: ruby
 rvm:
 - 2.7.2
+before_deploy: bundle config set deployment 'true'

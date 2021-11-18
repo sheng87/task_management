@@ -14,6 +14,9 @@ module TaskManagement
       g.test_framework :rspec
       g.assets false
     end
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    config.i18n.default_locale = :tw
+    config.time_zone = 'Taipei'
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

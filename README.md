@@ -4,6 +4,7 @@ Rails 6.1.4
 ruby 2.7.2
 PostgreSQL 13.3
 ### 部署流程
+
 ### Task 
 | column | datatype |
 | ------ | -------- |

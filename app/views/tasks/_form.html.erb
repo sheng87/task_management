@@ -13,3 +13,15 @@
 
   <%= f.submit %>
 <% end %>
+
+<% if task.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(task.errors.count, "個錯誤") %> </h2>
+
+    <ul>
+      <% task.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

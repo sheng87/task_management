@@ -2,7 +2,15 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
   
   def index 
-    @tasks = Task.ordered_by_created_at
+    @tasks = Task.all
+    case
+      when params[:sort] && params[:sort] == "以結束時間排序"
+        @tasks = @tasks.ordered_by_endtime
+      when params[:sort] && params[:sort] == "以建立時間排序"   
+        @tasks = @tasks.ordered_by_created_at
+    end
+      
+    # @tasks = Task.ordered_by_endtime
   end
 
   def new 

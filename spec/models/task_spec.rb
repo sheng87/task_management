@@ -1,17 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Task do
-  after(:all) do 
+  after(:example) do 
     Task.destroy_all
   end
+  # query
   context 'with 2 or more tasks' do 
-    it 'orders them from the past to the time close to present' do 
+    it 'orders them with created_at' do 
       t1 = Task.create(title:1)
       t2 = Task.create(title:2)
       expect(Task.ordered_by_created_at).to eq([t1,t2]) 
     end
-  end 
 
+    it 'orders them with end time' do 
+      past = Task.create(title:1, end:'2021-11-16 00:00:00')
+      now = Task.create(title:1, end:'2021-11-18 00:00:00')
+      expect(Task.ordered_by_endtime).to eq([past, now])
+    end
+  end 
+  # validation
   context 'validations with different situations' do 
     it 'fails without title' do 
       expect(Task.new(content:'123')).to be_invalid

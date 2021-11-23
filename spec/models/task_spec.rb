@@ -6,17 +6,26 @@ RSpec.describe Task do
   end
   # query
   context 'with 2 or more tasks' do 
+    let(:title_with_s) { Task.create(title:"s", status: "pending")}
+    let(:status_with_s) { Task.create(title:1, status: "processing")}
+
+    it 'serch_by_title_and_status' do 
+      expect(Task.ransack({title_or_status_cont:"s"}).result(distinct: true)).to eq([title_with_s, status_with_s])
+    end
+
     it 'orders them with created_at' do 
       t1 = Task.create(title:1)
-      t2 = Task.create(title:2)
+      t2 = Task.create(title:1)
       expect(Task.ordered_by_created_at).to eq([t1,t2]) 
     end
 
+    
     it 'orders them with end time' do 
       past = Task.create(title:1, end:'2021-11-16 00:00:00')
       now = Task.create(title:1, end:'2021-11-18 00:00:00')
       expect(Task.ordered_by_endtime).to eq([past, now])
     end
+
   end 
   # validation
   context 'validations with different situations' do 

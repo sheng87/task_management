@@ -2,6 +2,14 @@
   <%= f.label :title, "標題" %>
   <%= f.text_field :title %> <br />
 
+  <%= f.label :title, "狀態" %>
+  <% case %>
+    <% when @task.status == "pending" %>
+    <%= f.select :status, ["pending", "processing"] %> <br />
+    <% when @task.status == "processing" || "completed" %>
+    <%= f.select :status, ["processing", "completed"] %> <br />
+  <% end %>
+
   <%= f.label :start, "起始時間" %>
   <%= f.datetime_select :start %> <br />
 

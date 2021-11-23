@@ -1,4 +1,12 @@
-<h1> 任務列表 </h1>
+<h1><%= link_to '任務列表', root_path %> </h1>
+
+
+<%= search_form_for @q do |f| %>
+
+  <%= f.search_field :title_or_status_cont, placeholder: "標題和狀態搜尋" %>
+
+  <%= f.submit %>
+<% end %></br>
 
 <%=  form_with(url: root_path(@tasks), method: :get, local: true) do |f| %>
   <%= f.select :sort, ["以結束時間排序", "以建立時間排序"] %>
@@ -14,6 +22,7 @@
       <td><%= t :start %></td>
       <td><%= t :end %></td>
       <td><%= t :content %></td>
+      <td><%= t :status %></td>
     </tr>
   </thead>
   <tbody>
@@ -23,7 +32,8 @@
       <td><%= task.start %></td>
       <td><%= task.end %></td>
       <td><%= task.content %></td>
-      <td>
+      <td><%= task.status %></td>
+    <td>
         <%= link_to "編輯", edit_task_path(task) %>
         <%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確認刪除" } %>
     </td>

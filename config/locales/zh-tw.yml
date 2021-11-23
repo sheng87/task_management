@@ -3,10 +3,13 @@ tw:
   title: '標題'
   start: '起始時間'
   end: '結束時間'
-  content: '內容' 
+  content: '內容'
+  status: '狀態'
   create_flash: '任務新增成功'
   update_flash: '任務更新成功'
   delete_flash: '任務已刪除'
+  ransack:
+    search: 搜尋
   activerecord:
     errors:
       messages:

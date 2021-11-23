@@ -1,4 +1,18 @@
 class Task < ApplicationRecord
+  include AASM
+
+  aasm column: :status do 
+    state :pending, initial: true
+    state :processing, :completed
+
+    event :proceed do 
+      transitions from: :pending, to: :processing
+    end
+
+    event :finish do 
+      transitions from: :processing, to: :completed
+    end
+  end
   # reation
   belongs_to :user, optional: true
 

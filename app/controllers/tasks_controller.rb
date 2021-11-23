@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
   
   def index 
-    @tasks = Task.all
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
     case
       when params[:sort] && params[:sort] == "以結束時間排序"
         @tasks = @tasks.ordered_by_endtime
@@ -10,7 +11,6 @@ class TasksController < ApplicationController
         @tasks = @tasks.ordered_by_created_at
     end
       
-    # @tasks = Task.ordered_by_endtime
   end
 
   def new 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
   private 
 
   def task_params
-    params.require(:task).permit(:title, :start, :end, :content)
+    params.require(:task).permit(:title, :start, :end, :content, :status)
   end
 
   def find_task

@@ -1,13 +1,16 @@
 <%= form_for(task) do |f| %>
   <%= f.label :title, "標題" %>
-  <%= f.text_field :title %> <br />
+  <%= f.text_field :title %> <br/>
+  
+  <%= f.label :priority, "優先順序" %>
+  <%= f.select :priority, ["low", "medium", "high"] %></br>
 
   <%= f.label :title, "狀態" %>
   <% case %>
     <% when @task.status == "pending" %>
-    <%= f.select :status, ["pending", "processing"] %> <br />
+    <%= f.select :status, ["pending", "processing"] %> </br>
     <% when @task.status == "processing" || "completed" %>
-    <%= f.select :status, ["processing", "completed"] %> <br />
+    <%= f.select :status, ["processing", "completed"] %> </br>
   <% end %>
 
   <%= f.label :start, "起始時間" %>
@@ -17,10 +20,10 @@
   <%= f.datetime_select :end %> <br />
 
   <%= f.label :content, "任務內容" %>
-  <%= f.text_area :content %> <br />
+  <%= f.text_area :content %></br>
 
   <%= f.submit %>
-<% end %>
+<% end %></br>
 
 <% if task.errors.any? %>
   <div id="error_explanation">

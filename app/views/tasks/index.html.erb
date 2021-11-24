@@ -9,8 +9,8 @@
 <% end %></br>
 
 <%=  form_with(url: root_path(@tasks), method: :get, local: true) do |f| %>
-  <%= f.select :sort, ["以結束時間排序", "以建立時間排序"] %>
-  <%= f.submit "提交" %>
+  <%= f.select :sort, ["以結束時間", "以建立時間", "以優先順序"] %>
+  <%= f.submit "排序" %>
 <% end %></br>
 
 <%= link_to "新增任務", new_task_path %>
@@ -23,6 +23,7 @@
       <td><%= t :end %></td>
       <td><%= t :content %></td>
       <td><%= t :status %></td>
+      <td><%= t :priority %></td>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +34,11 @@
       <td><%= task.end %></td>
       <td><%= task.content %></td>
       <td><%= task.status %></td>
+      <% if task.priority %>
+        <td><%= Task.human_attribute_name("priority.#{task.priority}") %></td>
+      <% else %>
+        <td><%= task.priority %></td>
+      <% end %>
     <td>
         <%= link_to "編輯", edit_task_path(task) %>
         <%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確認刪除" } %>

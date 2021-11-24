@@ -5,10 +5,12 @@ class TasksController < ApplicationController
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true)
     case
-      when params[:sort] && params[:sort] == "以結束時間排序"
+      when params[:sort] && params[:sort] == "以結束時間"
         @tasks = @tasks.ordered_by_endtime
-      when params[:sort] && params[:sort] == "以建立時間排序"   
+      when params[:sort] && params[:sort] == "以建立時間"   
         @tasks = @tasks.ordered_by_created_at
+      when params[:sort] && params[:sort] == "以優先順序"   
+        @tasks = @tasks.ordered_by_priority  
     end
       
   end
@@ -48,7 +50,7 @@ class TasksController < ApplicationController
   private 
 
   def task_params
-    params.require(:task).permit(:title, :start, :end, :content, :status)
+    params.require(:task).permit(:title, :start, :end, :content, :status, :priority)
   end
 
   def find_task

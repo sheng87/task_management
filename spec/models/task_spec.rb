@@ -4,28 +4,34 @@ RSpec.describe Task do
   after(:example) do 
     Task.destroy_all
   end
-  # query
+  
   context 'with 2 or more tasks' do 
     let(:title_with_s) { Task.create(title:"s", status: "pending")}
     let(:status_with_s) { Task.create(title:1, status: "processing")}
+    let(:past) { Task.create(title:1, end:'2021-11-16 00:00:00')}
+    let(:now) { Task.create(title:1, end:'2021-11-18 00:00:00')}
+    let(:high) {Task.create(title:'h', priority: "high")}
+    let(:low) {Task.create(title:'l', priority: "low")}
 
+  # query  
     it 'serch_by_title_and_status' do 
       expect(Task.ransack({title_or_status_cont:"s"}).result(distinct: true)).to eq([title_with_s, status_with_s])
     end
-
+  # sort  
     it 'orders them with created_at' do 
       t1 = Task.create(title:1)
       t2 = Task.create(title:1)
       expect(Task.ordered_by_created_at).to eq([t1,t2]) 
     end
 
-    
-    it 'orders them with end time' do 
-      past = Task.create(title:1, end:'2021-11-16 00:00:00')
-      now = Task.create(title:1, end:'2021-11-18 00:00:00')
+    it 'orders them with end time' do   
       expect(Task.ordered_by_endtime).to eq([past, now])
     end
 
+    it 'orders them with priority' do 
+      expect(Task.ordered_by_priority).to eq([high, low])
+    end 
+    
   end 
   # validation
   context 'validations with different situations' do 

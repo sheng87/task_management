@@ -1,16 +1,30 @@
 ---
 tw:
+  tasks:
+    index:
+      high: 高
   title: '標題'
   start: '起始時間'
   end: '結束時間'
   content: '內容'
   status: '狀態'
+  priority: '優先順序'
+  high: '高'
   create_flash: '任務新增成功'
   update_flash: '任務更新成功'
   delete_flash: '任務已刪除'
   ransack:
     search: 搜尋
   activerecord:
+    attributes:
+      # task/status:
+      #   pending: "未處理"
+      #   processing: "進行中"
+      #   completed: "完成"
+      task/priority: 
+        high: "高"
+        medium: "中"
+        low: "低"
     errors:
       messages:
         record_invalid: '校驗失敗: %{errors}'

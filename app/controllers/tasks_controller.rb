@@ -5,17 +5,17 @@ class TasksController < ApplicationController
   def index 
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true)
-    @tasks = Task.order(:title).page(params[:page]).per(10)
+    @tasks = Task.order(:title).page(params[:page]).per(10) unless params[:sort]
     
     case
       when params[:sort] && params[:sort] == "以結束時間"
-        @tasks = @tasks.ordered_by_endtime
+        @tasks = @tasks.ordered_by_endtime.page(params[:page]).per(10)  
       when params[:sort] && params[:sort] == "以建立時間"   
-        @tasks = @tasks.ordered_by_created_at
+        @tasks = @tasks.ordered_by_created_at.page(params[:page]).per(10)  
       when params[:sort] && params[:sort] == "以優先順序"   
-        @tasks = @tasks.ordered_by_priority  
+        @tasks = @tasks.ordered_by_priority.page(params[:page]).per(10)  
     end
-      
+    
   end
 
   def new 

@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   include AASM
+ 
   enum priority: { low: 0, medium: 1, high: 2}
 
   aasm column: :status do 

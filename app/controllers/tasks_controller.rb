@@ -1,9 +1,12 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
   
+
   def index 
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true)
+    @tasks = Task.order(:title).page(params[:page]).per(10)
+    
     case
       when params[:sort] && params[:sort] == "以結束時間"
         @tasks = @tasks.ordered_by_endtime

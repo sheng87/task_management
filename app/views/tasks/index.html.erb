@@ -1,4 +1,4 @@
-<h1><%= link_to '任務列表', root_path %> </h1>
+<h1><%= link_to '任務列表', root_path %></h1>
 
 <%= paginate @tasks %>
 <%= search_form_for @q do |f| %>
@@ -13,9 +13,9 @@
   <%= f.submit "排序" %>
 <% end %></br>
 
-<%= link_to "新增任務", new_task_path %>
+<%= link_to "新增任務", new_task_path, class: 'btn btn-primary' %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <td><%= t :title %></td>
@@ -39,9 +39,9 @@
       <% else %>
         <td><%= task.priority %></td>
       <% end %>
-    <td>
-        <%= link_to "編輯", edit_task_path(task) %>
-        <%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確認刪除" } %>
+    <td class="link">
+        <div class="edit"><%= link_to "編輯", edit_task_path(task), class:"btn btn-primary" %></div>
+        <%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確認刪除"}, class:"btn btn-danger"  %>
     </td>
     </tr>
     <% end %>

@@ -1,29 +1,39 @@
 <%= form_for(task) do |f| %>
-  <%= f.label :title, "標題" %>
-  <%= f.text_field :title %> <br/>
-  
-  <%= f.label :priority, "優先順序" %>
-  <%= f.select :priority, ["low", "medium", "high"] %></br>
+  <div class="mb-3">  
+    <b><%= f.label :title, "標題",class:"form-label" %></b>
+    <%= f.text_field :title, class:"form-control" %> 
+    <div id="titleHint" class="form-text">必填</div>
+  </div>
+
+  <div class="mb-3">  
+    <b><%= f.label :content, "任務內容", class:"form-label" %></b>
+    <%= f.text_area :content, class:"form-control"%></br>
+  </div>
+<div class="status_and_priority">
+  <b><%= f.label :priority, "優先順序" %></b>
+  <%= f.select :priority, ["low", "medium", "high"],class:"form-select" %>
 
   <%= f.label :title, "狀態" %>
   <% case %>
     <% when @task.status == "pending" %>
-    <%= f.select :status, ["pending", "processing"] %> </br>
+    <%= f.select :status, ["pending", "processing"] %> 
     <% when @task.status == "processing" || "completed" %>
-    <%= f.select :status, ["processing", "completed"] %> </br>
+    <%= f.select :status, ["processing", "completed"] %> 
   <% end %>
+</div></br> 
 
-  <%= f.label :start, "起始時間" %>
-  <%= f.datetime_select :start %> <br />
+<div class="starttime">
+  <b><%= f.label :start, "起始時間" %></label></b>
+  <%= f.datetime_select :start %><br />
+</div ></br>  
 
-  <%= f.label :end, "結束時間" %>
-  <%= f.datetime_select :end %> <br />
+<div class="endtime">
+  <b><%= f.label :end, "結束時間" %></b>
+  <%= f.datetime_select :end %>
+</div></br>
 
-  <%= f.label :content, "任務內容" %>
-  <%= f.text_area :content %></br>
-
-  <%= f.submit %>
-<% end %></br>
+  <%= f.submit :Submit, class: 'btn btn-success' %>
+  <% end %></br>
 
 <% if task.errors.any? %>
   <div id="error_explanation">

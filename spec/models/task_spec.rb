@@ -41,8 +41,8 @@ RSpec.describe Task do
 
     it 'fails with content over 100 words' do 
       @task = Task.new
-      content_over_100_words = @task.content = 'a' * 101
-      expect(@task). to be_invalid
+      @task.content = 'a' * 101
+      expect(@task).to be_invalid
     end
 
     it 'passes with title' do

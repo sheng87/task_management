@@ -1,25 +1,28 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
   
+  def home
+  end
 
   def index 
-    @q = Task.ransack(params[:q])
+    if current_user
+    @q = @current_user.tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true)
     @tasks = @tasks.page(params[:page]).per(10)
 
-    unless params[:sort] || params[:q]
-      @tasks = Task.order(:title).page(params[:page]).per(10)
-    end
+      unless params[:sort] || params[:q]
+        @tasks = @current_user.tasks.order(:title).page(params[:page]).per(10)
+      end
 
-    case
-      when params[:sort] && params[:sort] == "以結束時間"
-        @tasks = Task.ordered_by_endtime.page(params[:page]).per(10)  
-      when params[:sort] && params[:sort] == "以建立時間"   
-        @tasks = Task.ordered_by_created_at.page(params[:page]).per(10)  
-      when params[:sort] && params[:sort] == "以優先順序"   
-        @tasks = Task.ordered_by_priority.page(params[:page]).per(10)  
+      case
+        when params[:sort] && params[:sort] == "以結束時間"
+          @tasks = @current_user.tasks.ordered_by_endtime.page(params[:page]).per(10)  
+        when params[:sort] && params[:sort] == "以建立時間"   
+          @tasks = @current_user.tasks.ordered_by_created_at.page(params[:page]).per(10)  
+        when params[:sort] && params[:sort] == "以優先順序"   
+          @tasks = @current_user.tasks.ordered_by_priority.page(params[:page]).per(10)  
+      end
     end
-    
   end
 
   def new 
@@ -31,17 +34,18 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    if @task.save
-      flash[:notice] = t(:create_flash)
+    if logged_in? && @task.save
+      flash.now[:notice] = t(:create_flash)
       redirect_to tasks_path 
     else 
-      render :new
+      flash.now[:notice] = "請先登入"
+      render 'new'
     end  
   end
 
   def update
     if @task.update(task_params)
-      flash[:notice] = t(:update_flash)
+      flash.now[:notice] = t(:update_flash)
       redirect_to tasks_path 
     else
       render :edit
@@ -50,7 +54,7 @@ class TasksController < ApplicationController
 
   def destroy 
     @task.destroy if @task
-    flash[:notice] = t(:delete_flash)
+    flash.now[:notice] = t(:delete_flash)
     redirect_to tasks_path 
   end
 

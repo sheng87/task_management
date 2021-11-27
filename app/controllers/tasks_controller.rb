@@ -1,19 +1,24 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :destroy]
-  
+  before_action :current_user, only: [:index, :create]
+
   def home
   end
 
   def index 
-    if current_user
-    @q = @current_user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true)
-    @tasks = @tasks.page(params[:page]).per(10)
+    if @current_user.nil?
+      redirect_to root_path
+    else
+      # ransack 搜尋  
+      @q = @current_user.tasks.ransack(params[:q])
+      @tasks = @q.result(distinct: true)
+      @tasks = @tasks.page(params[:page]).per(10)
 
+       # 排序
       unless params[:sort] || params[:q]
         @tasks = @current_user.tasks.order(:title).page(params[:page]).per(10)
       end
-
+      
       case
         when params[:sort] && params[:sort] == "以結束時間"
           @tasks = @current_user.tasks.ordered_by_endtime.page(params[:page]).per(10)  
@@ -21,19 +26,17 @@ class TasksController < ApplicationController
           @tasks = @current_user.tasks.ordered_by_created_at.page(params[:page]).per(10)  
         when params[:sort] && params[:sort] == "以優先順序"   
           @tasks = @current_user.tasks.ordered_by_priority.page(params[:page]).per(10)  
-      end
-    end
+      end  
+    end      
   end
 
   def new 
     @task = Task.new
   end
 
-  def edit 
-  end
 
   def create
-    @task = Task.new(task_params)
+    @task = @current_user.tasks.create(task_params)
     if logged_in? && @task.save
       flash.now[:notice] = t(:create_flash)
       redirect_to tasks_path 
@@ -65,6 +68,7 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find_by(id: params[:id])
+    current_user
+    @task = @current_user.tasks.find_by(id: params[:id])
   end
 end

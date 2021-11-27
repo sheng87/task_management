@@ -16,7 +16,7 @@ class Task < ApplicationRecord
     end
   end
   # reation
-  belongs_to :user, optional: true
+  belongs_to :user
 
   #validation
   validates :title, presence: true

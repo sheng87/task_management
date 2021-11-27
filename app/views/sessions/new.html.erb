@@ -1,0 +1,23 @@
+
+
+<% provide(:title, "Log in") %>
+<h1>登入</h1>
+
+<div>
+    <%= form_for(:session, url: login_path) do |f| %>
+    <div class="mb-3 mt-4">  
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+    <div class="mb-3"> 
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>  
+
+    <%= f.submit "登入", class: "btn btn-primary mb-3" %>
+    <% end %>
+
+    <p><%= link_to "馬上註冊!", signup_path %></p>
+  
+</div>
+

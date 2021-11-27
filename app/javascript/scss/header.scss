@@ -1,0 +1,10 @@
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; // remove the gap so it doesn't close
+}
+.dropdown{
+  display: inline-flex;
+  position: relative;
+  left: 85%;
+  top: 3px;
+}

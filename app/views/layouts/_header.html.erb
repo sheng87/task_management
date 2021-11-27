@@ -1,0 +1,13 @@
+
+  <div class="dropdown">
+    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      選單
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <p class= "dropdown-item"><%= "#{@current_user.name}" %></p>
+      <%= link_to '更改帳號', edit_user_path(current_user), class: "dropdown-item" %> 
+      <%= link_to '登出', logout_path, method: :delete, class: "dropdown-item" %> 
+    </div>
+  </div>
+
+  

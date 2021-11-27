@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Cover Template · Bootstrap v5.1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/cover/">
+
+    
+
+
+    
+    <!-- Custom styles for this template -->
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto" >
+    <div>
+      <h3 class="float-md-start mb-0">Tasks</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        
+      </nav>
+    </div>
+  </header>
+
+  <main class="px-3">
+    <h1>Tasks Management</h1></br>
+    
+    <p class="lead">
+    <% if logged_in? %>
+      <%= link_to '<-返回任務列表頁', tasks_path(current_user.tasks), class:"btn btn-lg  bg-white" %>
+    <% else %>
+      <p class="lead"> Signup or Login to learn more</p>
+      <%= link_to 'Signup', signup_path, class:"btn btn-lg  bg-white"%>
+      <%= link_to 'Login', login_path, class:"btn btn-lg  text-white bg-dark"%>
+    <% end %>
+
+    </p>
+  </main>
+
+  <footer class="mt-auto text-white-50">
+    <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@sheng87</a>.</p>
+  </footer>
+</div>
+
+
+    
+  </body>
+</html>

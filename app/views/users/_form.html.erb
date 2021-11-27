@@ -1,0 +1,30 @@
+<div>
+  <%= form_for(user) do |f| %>
+    <div class="mb-3 mt-4">  
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>  
+
+    <div class="mb-3">  
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">  
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">  
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+
+    <% if logged_in? %>
+      <%= f.submit "更新", class: "btn btn-success mb-5 " %>
+      <div><%= link_to "刪除", user_path(user), method: "delete", data: { confirm: "確認刪除"}, class:"btn btn-danger"  %></div>
+      <% else %>
+      <%= f.submit "註冊", class: "btn btn-success mb-3" %>
+    <% end %>  
+  <% end %>
+</div>

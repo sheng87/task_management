@@ -2,10 +2,12 @@ require 'rails_helper'
 RSpec.describe TasksController do
   describe "tasks_controller actions" do 
     before(:all) do
-      @task = Task.create(title:'嗨嗨')
+      @user = User.create!(name:"John", email:"apgc@gmail.com", password:"12345678")   
+      @task = @user.tasks.create(title:'嗨嗨')
     end
     after(:all) do 
       @task.destroy
+      @user.destroy
     end
     
       it 'can be created' do 
@@ -17,7 +19,7 @@ RSpec.describe TasksController do
       end
 
       it 'can be updated' do 
-        Task.update(title:"你好")
+        @task.update(title:"你好")
         expect(Task.find_by_title:"你好").to eq(@task)
       end
      

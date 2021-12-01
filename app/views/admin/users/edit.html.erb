@@ -1,0 +1,9 @@
+<h1>管理員頁面</h1></br>
+<%= link_to '返回任務頁', tasks_path, class:'btn btn-primary mb-4' %>
+<%= link_to '管理會員', admin_users_path(@users), class:'btn btn-danger  mb-4' %>
+
+<%=  form_with(url: edit_user_path(@user), method: :get, local: true) do |f| %>
+  <%= f.select :choose, ["一般會員", "管理員"] %>
+  <%= f.submit "切換權限" %>
+<% end %></br>
+<%= render 'users/form', user: @user %> 

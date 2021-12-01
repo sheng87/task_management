@@ -1,0 +1,24 @@
+<h1>管理會員</h1></br>
+<%= link_to '返回任務頁', tasks_path(@current_user.tasks), class:'btn btn-primary mb-3' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td><%= u :name %></td>
+      <td><%= u :email%></td>
+      <td><%= u :tasks_number%></td>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.tasks.size %></td>
+    <td class="link">
+        <%= link_to "刪除", admin_user_path(user), method: "delete", data: { confirm: "確認刪除"}, class:"btn btn-danger"  %>
+    </td>
+    </tr>
+    <% end %>
+  </tbody>

@@ -1,6 +1,13 @@
-<h1>編輯資料</h1><br />
-<%= link_to '返回任務頁', tasks_path, class:'btn btn-primary' %>
+<h1>會員</h1><br />
+<%= link_to '返回任務頁', tasks_path, class:'btn btn-primary mb-3' %>
+<% if current_user.admin? %>
+  <%=  form_with(url: edit_user_path(@user), method: :get, local: true) do |f| %>
+    <%= f.select :choose, ["一般會員", "管理員"] %>
+    <%= f.submit "切換權限" %>
+  <% end %></br>
+<% end %>
 <%= render "form", user: @user %>
+
 
 
 

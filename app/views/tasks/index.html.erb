@@ -1,7 +1,7 @@
 <strong class="home"><%= link_to '首頁', root_path %></strong>
-<%= render 'layouts/header' %>
+<%= render 'layouts/header', all_tasks: @all_tasks %>
 <%= paginate  @tasks %>
-<%= search_form_for @q do |f| %>
+<%= search_form_for @q, url: tasks_path do |f| %>
 
   <%= f.search_field :title_or_status_cont, placeholder: "標題和狀態搜尋" %>
 
@@ -14,6 +14,7 @@
 <% end %></br>
 
 <%= link_to "新增任務", new_task_path, class: 'btn btn-primary' %>
+
 
 <table class="table table-striped">
   <thead>
@@ -35,12 +36,13 @@
       <td><%= task.content %></td>
       <td><%= task.status %></td>
       <% if task.priority %>
+      <%# AASM i18n 優先順序 %>
         <td><%= Task.human_attribute_name("priority.#{task.priority}") %></td>
       <% else %>
-        <td><%= task.priority %></td>
+        <td><%= nil %></td>
       <% end %>
     <td class="link">
-        <div class="edit"><%= link_to "編輯", edit_task_path(task), class:"btn btn-primary" %></div>
+        <div class="edit"><%= link_to "編輯",  edit_task_path(task), class:"btn btn-primary" %></div>
         <%= link_to "刪除", task_path(task), method: "delete", data: { confirm: "確認刪除"}, class:"btn btn-danger"  %>
     </td>
     </tr>

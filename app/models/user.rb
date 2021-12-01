@@ -9,4 +9,6 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 8 }
   has_secure_password
+
+  scope :find_admin, -> {where(admin: true).size}
 end

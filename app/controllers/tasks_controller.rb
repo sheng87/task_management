@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :log_in_before_task, except: [:home]
   before_action :find_task, only: [:edit, :update, :destroy]
   before_action :current_user, only: [:index, :create]
 
@@ -6,6 +7,7 @@ class TasksController < ApplicationController
   end
 
   def index 
+    @all_tasks = @current_user.tasks
     if @current_user.nil?
       redirect_to root_path
     else
@@ -34,6 +36,8 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit 
+  end
 
   def create
     @task = @current_user.tasks.create(task_params)
@@ -70,5 +74,12 @@ class TasksController < ApplicationController
   def find_task
     current_user
     @task = @current_user.tasks.find_by(id: params[:id])
+  end
+
+  def log_in_before_task
+    unless logged_in?
+      redirect_to login_path
+      flash[:notice] = "請先登入"
+    end  
   end
 end

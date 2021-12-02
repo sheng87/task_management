@@ -49,13 +49,13 @@ class UsersController < ApplicationController
   end
 
   def find_user
-     @user = User.find(params[:id])
+     @user = User.friendly.find(params[:id])
   end
 
   
 
   def correct_user 
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     redirect_to root_path unless @user == current_user
   end
 

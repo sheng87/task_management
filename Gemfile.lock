@@ -81,6 +81,8 @@ GEM
     execjs (2.7.0)
     ffi (1.15.4)
     foreman (0.87.2)
+    friendly_id (5.4.2)
+      activerecord (>= 4.0.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
     hirb (0.7.3)
@@ -240,6 +242,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.4, >= 3.4.1)
   byebug
   foreman (~> 0.87.2)
+  friendly_id (~> 5.4)
   hirb (~> 0.7.3)
   jbuilder (~> 2.7)
   kaminari (~> 1.2, >= 1.2.1)

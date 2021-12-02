@@ -17,6 +17,7 @@ class Task < ApplicationRecord
   end
   # reation
   belongs_to :user
+  has_and_belongs_to_many :tags
 
   #validation
   validates :title, presence: true
@@ -26,4 +27,24 @@ class Task < ApplicationRecord
   scope :ordered_by_created_at, -> {order(created_at: :asc)}
   scope :ordered_by_endtime, -> {order(end: :asc)}
   scope :ordered_by_priority, -> {order('priority DESC NULLS LAST')}
+
+  # 任務內容寫入hashtags
+  after_create do 
+    task = Task.find_by(id: self.id)
+    hashtags = self.content.scan(/#\w+/)
+    hashtags.uniq.map do |hashtag|
+      tag = Tag.find_or_create_by(name: hashtag.downcase.delete('#'))
+      task.tags << tag
+    end
+  end
+
+  before_update do 
+    task = Task.find_by(id: self.id)
+    task.tags.clear
+    hashtags = self.content.scan(/#\w+/)
+    hashtags.uniq.map do |hashtag|
+      tag = Tag.find_or_create_by(name: hashtag.downcase.delete('#'))
+      task.tags << tag
+    end
+  end
 end

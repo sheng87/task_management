@@ -11,4 +11,5 @@ class User < ApplicationRecord
   has_secure_password
 
   scope :find_admin, -> {where(admin: true).size}
+
 end

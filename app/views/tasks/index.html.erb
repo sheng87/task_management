@@ -3,7 +3,7 @@
 <%= paginate  @tasks %>
 <%= search_form_for @q, url: tasks_path do |f| %>
 
-  <%= f.search_field :title_or_status_cont, placeholder: "標題和狀態搜尋" %>
+  <%= f.search_field :title_or_tags_name_or_status_cont, placeholder: "標題、狀態或標籤搜尋" %>
 
   <%= f.submit %>
 <% end %></br>
@@ -31,8 +31,8 @@
     <% @tasks.each do |task| %>
     <tr>
       <td><%= task.title %></td>
-      <td><%= task.start %></td>
-      <td><%= task.end %></td>
+      <td><%= task.start.try(:strftime, "%F %T") %></td>
+      <td><%= task.end.try(:strftime, "%F %T") %></td>
       <td><%= task.content %></td>
       <td><%= task.status %></td>
       <% if task.priority %>

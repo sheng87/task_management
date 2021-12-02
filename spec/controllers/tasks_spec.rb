@@ -3,10 +3,9 @@ RSpec.describe TasksController do
   describe "tasks_controller actions" do 
     before(:all) do
       @user = User.create!(name:"John", email:"apgc@gmail.com", password:"12345678")   
-      @task = @user.tasks.create(title:'嗨嗨')
+      @task = @user.tasks.create(title:'嗨嗨', content: "")
     end
     after(:all) do 
-      @task.destroy
       @user.destroy
     end
     

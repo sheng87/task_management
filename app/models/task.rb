@@ -1,17 +1,17 @@
 class Task < ApplicationRecord
   include AASM
- 
+
   enum priority: { low: 0, medium: 1, high: 2}
 
-  aasm column: :status do 
+  aasm column: :status do
     state :pending, initial: true
     state :processing, :completed
 
-    event :proceed do 
+    event :proceed do
       transitions from: :pending, to: :processing
     end
 
-    event :finish do 
+    event :finish do
       transitions from: :processing, to: :completed
     end
   end
@@ -24,12 +24,12 @@ class Task < ApplicationRecord
   validates :content, length: { maximum: 100}
 
   # scope
-  scope :ordered_by_created_at, -> {order(created_at: :asc)}
-  scope :ordered_by_endtime, -> {order(end: :asc)}
-  scope :ordered_by_priority, -> {order('priority DESC NULLS LAST')}
+  scope :ordered_by_created_at, -> {order(:created_at)}
+  scope :ordered_by_endtime, -> {order(:end)}
+  scope :ordered_by_priority, -> {order(priority: :desc)}
 
   # 任務內容寫入hashtags
-  after_create do 
+  after_create do
     task = Task.find_by(id: self.id)
     hashtags = self.content.scan(/#\w+/)
     hashtags.uniq.map do |hashtag|
@@ -38,7 +38,7 @@ class Task < ApplicationRecord
     end
   end
 
-  before_update do 
+  before_update do
     task = Task.find_by(id: self.id)
     task.tags.clear
     hashtags = self.content.scan(/#\w+/)

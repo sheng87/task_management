@@ -1,5 +1,5 @@
 <strong class="home"><%= link_to '首頁', root_path %></strong>
-<%= render 'layouts/header', all_tasks: @all_tasks %>
+<%= render 'layouts/header', tasks: @current_user.tasks %>
 <%= paginate  @tasks %>
 <%= search_form_for @q, url: tasks_path do |f| %>
 
@@ -8,12 +8,12 @@
   <%= f.submit %>
 <% end %></br>
 
-<%=  form_with(url: tasks_path(@tasks), method: :get, local: true) do |f| %>
-  <%= f.select :sort, ["以結束時間", "以建立時間", "以優先順序"] %>
-  <%= f.submit "排序" %>
-<% end %></br>
+<%= sort_link(@q, :start, '起始時間', default_order: :desc) %>
+<%= sort_link(@q, :end, '結束時間', default_order: :desc) %>
+<%= sort_link(@q, :priority, '優先順序', default_order: :desc)%></br>
 
-<%= link_to "新增任務", new_task_path, class: 'btn btn-primary' %>
+
+<%= link_to "新增任務", new_task_path, class: 'btn btn-primary mt-3'%>
 
 
 <table class="table table-striped">
@@ -49,5 +49,3 @@
     <% end %>
   </tbody>
 </table>
-
-

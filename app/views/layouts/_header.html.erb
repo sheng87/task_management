@@ -5,10 +5,8 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <p class= "dropdown-item"><%= "帳號:#{current_user.name}" %></p>
-      <p class="dropdown-item"><%= "任務總數:#{all_tasks.count}" %></p><hr>
-      <%= link_to '帳號', edit_user_path(current_user), class: "dropdown-item" %> 
-      <%= link_to '登出', logout_path, method: :delete, class: "dropdown-item" %> 
+      <p class="dropdown-item"><%= "任務總數:#{current_user.tasks.count}" %></p><hr>
+      <%= link_to '帳號', edit_user_path(current_user), class: "dropdown-item" %>
+      <%= link_to '登出', logout_path, method: :delete, class: "dropdown-item" %>
     </div>
   </div>
-
-  

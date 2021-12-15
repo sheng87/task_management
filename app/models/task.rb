@@ -23,15 +23,11 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :content, length: { maximum: 100}
 
-  # scope
-  scope :ordered_by_created_at, -> {order(:created_at)}
-  scope :ordered_by_endtime, -> {order(:end)}
-  scope :ordered_by_priority, -> {order(priority: :desc)}
 
   # 任務內容寫入hashtags
   after_create do
-    task = Task.find_by(id: self.id)
-    hashtags = self.content.scan(/#\w+/)
+    @task = Task.find_by(id: self.id)
+    hashtags = @task.content.scan(/#\w+/)
     hashtags.uniq.map do |hashtag|
       tag = Tag.find_or_create_by(name: hashtag.downcase.delete('#'))
       task.tags << tag
@@ -39,9 +35,9 @@ class Task < ApplicationRecord
   end
 
   before_update do
-    task = Task.find_by(id: self.id)
-    task.tags.clear
-    hashtags = self.content.scan(/#\w+/)
+    @task = Task.find_by(id: self.id)
+    @task.tags.clear
+    hashtags = @task.content.scan(/#\w+/)
     hashtags.uniq.map do |hashtag|
       tag = Tag.find_or_create_by(name: hashtag.downcase.delete('#'))
       task.tags << tag

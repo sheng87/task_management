@@ -14,7 +14,7 @@
 6. `git push heroku master`(再次執行
 7. `heroku run rails db:migrate` (部署環境建立資料
 
-### Task 
+### Task
 | column | datatype |
 | ------ | -------- |
 | title  | string   |
@@ -31,7 +31,7 @@
 | ------ | -------- |
 | name   | string   |
 | email  |string    |
-|password| string   | 
+|password| string   |
 
-![image](pictures/PXL_20211111_085836068.jpg)
-![image](pictures/PXL_20211111_115459826.jpg)
+![image](pictures/PXL_20211215_045955137.jpg)
+![image](pictures/PXL_20211215_050040931.jpg)

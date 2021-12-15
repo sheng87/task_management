@@ -3,7 +3,10 @@ rvm:
 - 2.7.2
 install:
 - bundle install
+
+
 script:
+- RAILS_ENV=test bundle exec rails webpacker:compile
 - bundle exec rake db:migrate:reset RAILS_ENV=test
 - bundle exec rspec
 services:
@@ -13,6 +16,4 @@ deploy:
   api_key:
     secure: Wp3Bm86d4KbQlGW8Ya5obNqj1Uy9zRcXaWLs+JuNWQ91f/WmKDFhjZQi5SoIm7H/ktbwv64m8IMOWzKDjXjh7xdYrVudGWb/luVoC+T3mSufjxrYP2JKUb1DulMbabmH1bKjXu/SNIhEwNFcNLEAWGHWB1Jbor32rjU/g9dRNOjEvq4vkBoFvHFYgj4aO5p1dVF8h5UrsB88emfwi6m1/t13dzexoR/g3CycN8siDDiX+R/NoJBQz0lKP4Da9I/mAa2JeaI89SG6WrrRJEGy+bNcMQOLyWVjeUUnA3iLbABJ8ck42pgNCN3nJ4uUSw3pgUPWhd/SIa6Ota2nX2l3RdNnv0nB6gTIlBpZa3/eVzsh2zO9uMyTY1YlQtH3s5wfJDim1PJC0vXmu+8E4qaJqTDQflHnFBJrex9FdmfGU8yStjf0fKzqIGpp4gwUs/ybRQHEO7LAKC3rEE+NomePYBbRLUEs7cngC3NupOEEc3BwGs5zTsGYEgM+61LlOgiHvm79jvZsPJbFCRWLDT/OQo0lCmRoMTOWFlVE3uCfKa5oSMM4gc9Q4864yL+akPFTJYxiQndcFItMM+e/i3f4Y0W0M+p4IzgcojOiHaC6voKfoFokgf/ddGanfV3Kgc4W3lgZWR9MULXTjgOknmzAcIwls09wIS7wMzm060qlVmo=
   app: task-management123
-  run: "rake db:migrate"  
-
-
+  run: "rake db:migrate"
